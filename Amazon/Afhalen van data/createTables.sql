@@ -1,0 +1,12 @@
+CREATE TABLE users
+(
+Country  VARCHAR(64) NOT NULL,
+ClientID VARCHAR(64) NOT NULL,
+sessionsPerUser INTEGER NOT NULL,
+);
+CREATE TABLE session
+(
+Country  VARCHAR(64) NOT NULL,
+SessionID  VARCHAR(64) NOT NULL
+pageviews INTEGER NOT NULL,
+);

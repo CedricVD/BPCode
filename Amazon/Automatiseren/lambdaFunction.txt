@@ -1,0 +1,33 @@
+var pg = require("pg");
+var pushData = function(context, entityName, schema) {
+
+//Setup
+const conn = 'pg://user:pass@host:port/bachelorproef'
+const s3Bucket = 'bachelorproef.bucket.com'
+const credsRole = arn:aws:iam::<ARN>
+
+const client = new pg.Client(conn);
+                 
+const qry = 'COPY '+entityName+' FROM \'s3://'
+                    +s3Bucket+'/'+entityName+'.csv\'  
+                    credentials \'aws_iam_role='+credsRole
+                    +'\' region \'ap-southeast-2\' 
+                    delimiter \',\' IGNOREHEADER 1 removequotes;'
+
+//Code uitvoeren
+client.connect();
+client.query(qry).on("end", function (result) {
+client.end();
+context.succeed("Done");
+}).on("error", function (error) {
+client.end();
+context.fail(error);
+}); 
+} 
+
+exports.handler = function(event, context) {
+
+pushData(context, 
+'<FileName>', 
+'<col1> <type1>, <col2> <type2>, <col3> <type3>);
+};
